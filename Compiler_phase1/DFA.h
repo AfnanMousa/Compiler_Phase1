@@ -12,6 +12,7 @@ struct DFA_State{
     int id;
     bool accept_state_flag = false; //0 not accepting ,1 for accepting.
     string name="";
+    int priority = 0;
     set <NFA_State*> subset;
     set <int> subset_ids; //of NFA_state
     //string represents the content of input_symbol
@@ -20,13 +21,14 @@ struct DFA_State{
     map <string, set<int>> Group_ids;
 };
 
-struct DFA_Graph{
+struct DFA_Graph{ //represent the node .
     bool acceptance_state;
-    string name;
-    map<string, int> next_state;
+    string name = "";
+    int priority = 0;
+    map<string, int> next_state;  //under input go to id of next state .
 };
 
-void Subset_Construction(NFA_State* original);
+map<int, DFA_Graph> Subset_Construction(NFA_State* original);
 void Move_To(DFA_State *Basic_node);
 void test(DFA_State *Basic_node);
 map<int, DFA_Graph> get_graph ();

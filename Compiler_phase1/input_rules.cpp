@@ -2,6 +2,7 @@
 #include "parse_rules.h"
 #include "interface.h"
 #include "minimization.h"
+#include "TestProgram.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -13,7 +14,7 @@ void display (state st){
     visit[st.id] = 1;
    // cout << st.id <<" " << st.transition.size()<<endl;
     for (auto edg: st.transition){
-        cout << st.id <<" "<< (edg.first)->id <<" " << edg.second << "     "<<(edg.first)->accepted<<"     "<<(edg.first)->accepted_language<<endl;
+       cout << st.id <<" "<< (edg.first)->id <<" " << edg.second << "     "<<(edg.first)->accepted<<"     "<<(edg.first)->accepted_language <<"   " << (edg.first)->priority<<endl;
         if (!visit[edg.first->id]){
             display (*(edg.first));
         }
@@ -29,9 +30,6 @@ void extract(string line) {
 		parts = parse.splits(line, "=");
 		automata a ;
 		a = cal.language_NFA(parts[1],Languages);
-		display(*a.start);
-        memset(visit, 0, sizeof(visit));
-        cout << endl;
 		Languages.push_back({parts[0],a});
 	}else if (line.find(':') < line.length()) {
 		cout << "expression \n";
@@ -40,9 +38,6 @@ void extract(string line) {
 		parts = parse.splits(line, ":");
 		automata a ;
 		a = cal.language_NFA (parts[1],Languages);
-		display(*a.start);
-        memset(visit, 0, sizeof(visit));
-        cout << endl;
 		patterns.push_back({parts[0],a});
 	}
 	else if(line[0]=='{'){
@@ -98,6 +93,13 @@ int main(){
 	automata final_result = cal.combine(patterns,s);
 	display(*final_result.start);
     memset(visit, 0, sizeof(visit));
-    convert(final_result);
+    NFA_State * start_state = convert(final_result);
+    cout<<"id :"<<start_state->id <<endl;
+    map<int, DFA_Graph> Final_Graph=Subset_Construction(start_state);
+    string test_program;
+
+    cin>>test_program;
+    split(test_program,Final_Graph);
+
 	return 0;
 }

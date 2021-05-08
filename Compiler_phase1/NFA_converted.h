@@ -21,7 +21,9 @@ struct NFA_State {
     int id;
     bool accept_state_flag = false; //0 not accepting ,1 for accepting.
     string name="";
+    int priority = 0;
     vector <Transition> transitions;
 };
+
 
 #endif

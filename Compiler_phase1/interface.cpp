@@ -45,7 +45,7 @@ void Get_NFA_Converted_State(map<int,vector<pair<int,string>>> NFA_set_map ,map 
 }
 
 
-void convert(automata final_result){
+NFA_State * convert(automata final_result){
     //extracted from automata
     state* first = final_result.start;
     state* last = final_result.end_;
@@ -60,6 +60,7 @@ void convert(automata final_result){
     start_state->id = current->id;
     start_state->accept_state_flag = current->accepted;
     start_state->name = current->accepted_language;
+    start_state->priority = current->priority;
      NFA_initial_Map[start_state->id]=start_state;
      //loop to get all next transitions
      for(auto item:current->transition){
@@ -77,7 +78,7 @@ void convert(automata final_result){
         temp->id = current->id;
         temp->accept_state_flag = current->accepted;
         temp->name = current->accepted_language;
-
+        temp->priority = current->priority;
         //const bool is_in = NFA_set.find(temp) != NFA_set.end();
         if(NFA_initial_Map.count(temp->id)==0){
             NFA_initial_Map[temp->id]=temp;
@@ -89,7 +90,7 @@ void convert(automata final_result){
         }
     }
     Get_NFA_Converted_State(NFA_set_map,NFA_initial_Map);
-    Subset_Construction(start_state);
+    //Subset_Construction(start_state);
 
    /* map<int,NFA_State*>::iterator itr;
     for(itr =  NFA_initial_Map.begin(); itr !=  NFA_initial_Map.end(); ++itr){
@@ -112,5 +113,6 @@ void convert(automata final_result){
 
     }
     */
+    return start_state;
 }
 

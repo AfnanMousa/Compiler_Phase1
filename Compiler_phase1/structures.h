@@ -8,13 +8,8 @@ struct state{
     state * related;
     bool accepted = false;
     string accepted_language = "";
+    int priority = 0;
     vector <pair<state*, string > > transition ;
-};
-
-struct edge{
-    state from;
-    state to;
-    string symbol;
 };
 
 struct automata{

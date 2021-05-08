@@ -104,7 +104,12 @@ automata calc_rgx::language_NFA (string rgx,vector<pair<string,automata> > Langu
         else if (!is_operator(rgx[i]) ||(is_operator(rgx[i]) && rgx[i-1]=='\\')){
             string  name = "";
             while(i < rgx.length() && (!is_operator(rgx[i]) ||(is_operator(rgx[i]) && rgx[i-1]=='\\'))){
-                name.push_back (rgx[i]);
+                if(rgx[i]!='\\' )
+                    name.push_back (rgx[i]);
+                else{
+                    if(rgx[i+1]=='L')
+                        name.push_back (rgx[i]);
+                }
                 i++;
             }
             cout << "name :" << name <<'\n' ;

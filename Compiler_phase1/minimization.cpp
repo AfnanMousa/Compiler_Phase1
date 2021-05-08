@@ -33,6 +33,13 @@ vector<set<int>> table_filling(map<int, DFA_Graph> graph){
         for(int j=0; j<=i; j++){
             if(accepting[i+2]!=accepting[j+1])
                 table[i][j] = -1;
+            else{
+                string str1 = get_pointer_id(i+2, graph);
+                string str2 = get_pointer_id(j+1, graph);
+                if(str1.compare(str2) != 0)
+                    table[i][j] = -1;
+            }
+
         }
     }
     //construct the table
@@ -99,13 +106,12 @@ vector<set<int>> table_filling(map<int, DFA_Graph> graph){
     }
 
 
-    cout<<"\n\n equivelent_sets is :\n";
+   /* cout<<"\n\n equivelent_sets is :\n";
     for(int i=0; i<equivalent_states.size(); i++){
         for(auto item : equivalent_states[i])
             cout<<" "<< item;
         cout<<"\n";
-    }
-
+    }*/
     return equivalent_states;
 }
 
@@ -161,4 +167,12 @@ map<int, DFA_Graph> minimized(map<int, DFA_Graph> graph, vector<set<int>> equiva
 }
 
 
+string get_pointer_id(int id, map<int, DFA_Graph> graph){
+    map<int, DFA_Graph>::iterator itr1;
+    for(itr1 =  graph.begin(); itr1 !=  graph.end(); ++itr1){
+        if(itr1->first == id){
+            return itr1->second.name;
+        }
+    }
+}
 

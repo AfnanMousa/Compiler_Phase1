@@ -93,6 +93,7 @@ automata NFA::combined_NFA(vector <pair<string,automata>> patterns, state* new_s
          state *temp = patterns[p].second.end_;
          temp->accepted = true;
          temp->accepted_language = patterns[p].first;
+         temp->priority = p+1;
          new_start->transition.push_back({(patterns[p].second.start), "\\L"});
     }
     result.start = new_start;

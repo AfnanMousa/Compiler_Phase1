@@ -58,6 +58,7 @@ void Move_To(DFA_State* Basic_node) //struct node
 {
     set<NFA_State*> Initial_state = Basic_node->subset;
     map <string, set<NFA_State*>> temp_symbols;
+    map<string,pair<int,string>> under_input_have_accepted_state_language; //under input  -->priority , name language
     map <string, set<int>> temp_ids;
     map<string, bool> flag_accept;
     for (auto i : Initial_state)//int i=0;i<Initial_state.size();i++
@@ -69,7 +70,11 @@ void Move_To(DFA_State* Basic_node) //struct node
             string s2="\\L";
             if (Total_Transition[j].input_symbol.compare(s2)==0 ) continue;
 
-            if (Total_Transition[j].next->accept_state_flag)flag_accept[Total_Transition[j].input_symbol] = true; //check if the next state is accept or not .
+            if (Total_Transition[j].next->accept_state_flag)
+            {
+                flag_accept[Total_Transition[j].input_symbol] = true; //check if the next state is accept or not .
+                under_input_have_accepted_state_language[Total_Transition[j].input_symbol]={Total_Transition[j].next->priority,Total_Transition[j].next->name};
+            }
 
             temp_symbols[Total_Transition[j].input_symbol].insert(Total_Transition[j].next);  //push the next node .
             temp_ids[Total_Transition[j].input_symbol].insert((Total_Transition[j].next)->id);
@@ -79,7 +84,11 @@ void Move_To(DFA_State* Basic_node) //struct node
             {
                 for (auto item : Epsilon_state)
                 {
-                    if (item->accept_state_flag)flag_accept[Total_Transition[j].input_symbol] = true; //check if the next state is accept or not for epsilon state.
+                    if (item->accept_state_flag)
+                    {
+                        flag_accept[Total_Transition[j].input_symbol] = true; //check if the next state is accept or not for epsilon state.
+                        under_input_have_accepted_state_language[Total_Transition[j].input_symbol] = {item->priority,item->name};
+                    }
                     temp_symbols[Total_Transition[j].input_symbol].insert(item); //push epsilon of each reachable node.
                     temp_ids[Total_Transition[j].input_symbol].insert(item->id);
                 }
@@ -97,6 +106,11 @@ void Move_To(DFA_State* Basic_node) //struct node
             temp->subset = temp_symbols[i.first]; //i.first mean input;
             temp->subset_ids = temp_ids[i.first];
             temp->accept_state_flag = flag_accept[i.first];
+            if(flag_accept[i.first])
+            {
+                temp->name=under_input_have_accepted_state_language[i.first].second;
+                temp->priority=under_input_have_accepted_state_language[i.first].first;
+            }
             Table.push_back(temp);
 
         }
@@ -113,11 +127,16 @@ void Move_To(DFA_State* Basic_node) //struct node
     Basic_node->Group_ids = temp_ids;
 }
 
-void Subset_Construction(NFA_State* original)
+map<int, DFA_Graph> Subset_Construction(NFA_State* original)
 {
     // prepare the initial state by original.
     DFA_State* a = new DFA_State;
     a->id = 1;
+    if(original->name!="")
+    {
+       a->name=original->name;
+       a->priority=original->priority;
+    }
     a->subset.insert(original);
     a->subset_ids.insert(original->id);
     if (original->accept_state_flag) a->accept_state_flag = true;
@@ -144,8 +163,8 @@ void Subset_Construction(NFA_State* original)
     map<int, DFA_Graph> Result_graph=get_graph();
     print_graph(Result_graph);
     cout<<"DFA after minimization \n";
-    minimize_graph(Result_graph);
 
+    return minimize_graph(Result_graph);
 }
 
 void test(DFA_State* a)
@@ -197,6 +216,7 @@ map<int, DFA_Graph> get_graph (){
         int current_id = Table[i]->id;
         bool accepted = Table[i]->accept_state_flag;
         string type_name = Table[i]->name;
+        int priority_id = Table[i]->priority;
         map <string, set<NFA_State*>> transition = Table[i]->symbols;
         for(auto item : transition){
             string input = item.first;
@@ -213,7 +233,7 @@ map<int, DFA_Graph> get_graph (){
         state_info.acceptance_state = accepted;
         state_info.name = type_name;
         state_info.next_state = transition_map;
-
+        state_info.priority = priority_id;
         graph.insert({current_id, state_info});
 
         transition_map.clear();
@@ -233,6 +253,7 @@ void print_graph(map<int, DFA_Graph> graph){
     map<string, int>::iterator itr2;
     for(itr1 =  graph.begin(); itr1 !=  graph.end(); ++itr1){
         cout<<"\n state id is: "<<itr1->first<<"\n its accepting state is " << itr1->second.acceptance_state<<"\n";
+        cout<<"the word identifier is : "<<itr1->second.name<<" the priority is : "<<itr1->second.priority<<"\n";
         for(itr2 = itr1->second.next_state.begin(); itr2 != itr1->second.next_state.end(); ++itr2)
             cout<<"under input "<< itr2->first<<"  it goes to state "<<itr2->second<<"\n";
         cout<<"*******************"<<"\n";
