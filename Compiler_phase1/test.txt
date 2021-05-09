@@ -1,0 +1,4 @@
+intsum , count , pass,mnt;whileAfnan(pass!=
+10){
+pass=pass+1;
+}

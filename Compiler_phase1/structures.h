@@ -3,13 +3,26 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+struct Transition{
+    struct state* next ;
+    string input_symbol;
+};
+
+struct  copied_state{
+    state * related ;
+};
+// transition. first ---- transitions.next
+// transition . second  ---- transitions.input_symbol
+
 struct state{
     int id = 0;
-    state * related;
+    //state * related;
+    copied_state cpd;
     bool accepted = false;
     string accepted_language = "";
     int priority = 0;
-    vector <pair<state*, string > > transition ;
+    //vector <pair<state*, string > > transition ;
+    vector<Transition> transitions ;
 };
 
 struct automata{

@@ -5,6 +5,17 @@ using namespace std;
 calc_rgx::calc_rgx()
 {
 }
+bool vis[100];
+void display_ (state st){
+    vis[st.id] = 1;
+  //  cout << st.id <<" " << st.transition.size()<<endl;
+    for (auto edg: st.transitions){
+            cout << st.id <<" "<< (edg.next)->id <<" " << edg.input_symbol  <<"     "<<(edg.next)->accepted<<"     "<<(edg.next)->accepted_language<<endl;
+        if (!vis[edg.next->id]){
+            display_ (*(edg.next));
+        }
+    }
+}
 
 int calc_rgx::find_language(string lang,vector<pair<string,automata> > Languages){
     for(int x=0;x<Languages.size();x++){
@@ -30,41 +41,28 @@ int calc_rgx::priority(char op){
     return 0;
 }
 
-/*bool visit[1000];
-void display (state st){
-    visit[st.id] = 1;
-   // cout << st.id <<" " << st.transition.size()<<endl;
-    for (auto edg: st.transition){
-        cout << st.id <<" "<< (edg.first)->id <<" " << edg.second <<endl;
-        if (!visit[edg.first->id]){
-            display (*(edg.first));
-        }
-    }
-}
-*/
 bool v [1000];
 void calc_rgx:: dfs(state* st, state* cpd, state* helper_end){
     v[st->id] = 1;
-    st->related = new state;
-    for (auto trs: st->transition){
+    st->cpd.related = new state;
+    for (auto trs: st->transitions){
         state* help = new state;
-        st->related = cpd;
-
-        if (trs.first->transition.size()==0){
-            if (!v[trs.first->id]){
+        st->cpd.related = cpd;
+        if (trs.next->transitions.size()==0){
+            if (!v[trs.next->id]){
                 help->id = nfa.cnt++;
                 *(helper_end) = *(help);
             }
-            cpd->transition.push_back({helper_end, trs.second});
-            v[trs.first->id] = 1;
+            cpd->transitions.push_back({helper_end, trs.input_symbol});
+            v[trs.next->id] = 1;
             continue;
         }
-        if (!v[trs.first->id]){
+        if (!v[trs.next->id]){
             help->id = nfa.cnt++;
-            cpd->transition.push_back({help, trs.second});
-            dfs(trs.first, help, helper_end);
+            cpd->transitions.push_back({help, trs.input_symbol});
+            dfs(trs.next, help, helper_end);
         }else {
-            cpd->transition.push_back({trs.first->related, trs.second});
+            cpd->transitions.push_back({(trs.next->cpd).related, trs.input_symbol});
         }
     }
 
@@ -103,12 +101,18 @@ automata calc_rgx::language_NFA (string rgx,vector<pair<string,automata> > Langu
         }
         else if (!is_operator(rgx[i]) ||(is_operator(rgx[i]) && rgx[i-1]=='\\')){
             string  name = "";
+            bool flag = false;
+            int indx_of_slash = 0;
             while(i < rgx.length() && (!is_operator(rgx[i]) ||(is_operator(rgx[i]) && rgx[i-1]=='\\'))){
                 if(rgx[i]!='\\' )
                     name.push_back (rgx[i]);
                 else{
                     if(rgx[i+1]=='L')
                         name.push_back (rgx[i]);
+                    else{
+                        flag = true;
+                        indx_of_slash = name.length();
+                    }
                 }
                 i++;
             }
@@ -117,8 +121,17 @@ automata calc_rgx::language_NFA (string rgx,vector<pair<string,automata> > Langu
             cout << "temp : " << temp <<'\n' ;
             automata  n;
             if(temp == -1){
-                automata base;
-                n = nfa.basic_NFA(name, base);
+                if(!flag || name.length()==1){
+                    automata base;
+                    n = nfa.basic_NFA(name, base);
+                }
+                else{
+                    automata base1,base2,n1,n2;
+                    n1 = nfa.basic_NFA(name.substr(0,indx_of_slash),base1);
+                    n2 = nfa.basic_NFA(name.substr(indx_of_slash,name.length()-1),base2);
+                    n = nfa.and_NFA(&n1,&n2);
+                }
+
             }else{
                 n =Languages[temp].second;
                 n = start_copy(n);
@@ -193,10 +206,9 @@ automata calc_rgx::language_NFA (string rgx,vector<pair<string,automata> > Langu
 
         automatas.push(res);
     }
-   /* display(*automatas.top().start);
-
-        memset(visit, 0, sizeof(visit));
-        cout << endl;*/
+    display_(*automatas.top().start);
+    memset(vis, 0, sizeof(vis));
+    cout << endl;
     return automatas.top();
 }
 

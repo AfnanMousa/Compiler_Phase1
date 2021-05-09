@@ -26,13 +26,13 @@ bool Check(set<int> v)
     return true;
 }
 
-vector <NFA_State*> E_closure(NFA_State* original) {
-    vector <NFA_State*> closures;
-    stack <NFA_State*> temp;
+vector <state*> E_closure(state* original) {
+    vector <state*> closures;
+    stack <state*> temp;
     temp.push(original);
     while (!temp.empty()) {
 
-        NFA_State* state = temp.top();
+        state* state = temp.top();
         temp.pop();
         vector <Transition> t = state->transitions;
         for (auto item : t) {
@@ -56,8 +56,8 @@ vector<DFA_State*> get()
 
 void Move_To(DFA_State* Basic_node) //struct node
 {
-    set<NFA_State*> Initial_state = Basic_node->subset;
-    map <string, set<NFA_State*>> temp_symbols;
+    set<state*> Initial_state = Basic_node->subset;
+    map <string, set<state*>> temp_symbols;
     map<string,pair<int,string>> under_input_have_accepted_state_language; //under input  -->priority , name language
     map <string, set<int>> temp_ids;
     map<string, bool> flag_accept;
@@ -70,24 +70,24 @@ void Move_To(DFA_State* Basic_node) //struct node
             string s2="\\L";
             if (Total_Transition[j].input_symbol.compare(s2)==0 ) continue;
 
-            if (Total_Transition[j].next->accept_state_flag)
+            if (Total_Transition[j].next->accepted)
             {
                 flag_accept[Total_Transition[j].input_symbol] = true; //check if the next state is accept or not .
-                under_input_have_accepted_state_language[Total_Transition[j].input_symbol]={Total_Transition[j].next->priority,Total_Transition[j].next->name};
+                under_input_have_accepted_state_language[Total_Transition[j].input_symbol]={Total_Transition[j].next->priority,Total_Transition[j].next->accepted_language};
             }
 
             temp_symbols[Total_Transition[j].input_symbol].insert(Total_Transition[j].next);  //push the next node .
             temp_ids[Total_Transition[j].input_symbol].insert((Total_Transition[j].next)->id);
 
-            vector <struct NFA_State*> Epsilon_state = E_closure(Total_Transition[j].next);         // part of epsilon ..
+            vector <struct state*> Epsilon_state = E_closure(Total_Transition[j].next);         // part of epsilon ..
             if (Epsilon_state.size() != 0) //epsilon of each reachable node.
             {
                 for (auto item : Epsilon_state)
                 {
-                    if (item->accept_state_flag)
+                    if (item->accepted)
                     {
                         flag_accept[Total_Transition[j].input_symbol] = true; //check if the next state is accept or not for epsilon state.
-                        under_input_have_accepted_state_language[Total_Transition[j].input_symbol] = {item->priority,item->name};
+                        under_input_have_accepted_state_language[Total_Transition[j].input_symbol] = {item->priority,item->accepted_language};
                     }
                     temp_symbols[Total_Transition[j].input_symbol].insert(item); //push epsilon of each reachable node.
                     temp_ids[Total_Transition[j].input_symbol].insert(item->id);
@@ -127,26 +127,27 @@ void Move_To(DFA_State* Basic_node) //struct node
     Basic_node->Group_ids = temp_ids;
 }
 
-map<int, DFA_Graph> Subset_Construction(NFA_State* original)
+map<int, DFA_Graph> Subset_Construction(state* original)
 {
     // prepare the initial state by original.
     DFA_State* a = new DFA_State;
     a->id = 1;
-    if(original->name!="")
+    if(original->accepted_language!="")
     {
-       a->name=original->name;
+       a->name=original->accepted_language;
        a->priority=original->priority;
     }
     a->subset.insert(original);
     a->subset_ids.insert(original->id);
-    if (original->accept_state_flag) a->accept_state_flag = true;
+    if (original->accepted)
+        a->accept_state_flag = true;
     //call epsilon .
-    vector <struct NFA_State*> Epsilon_state = E_closure(original);
+    vector <struct state*> Epsilon_state = E_closure(original);
     if (Epsilon_state.size() != 0) //epsilon of each reachable node.
     {
         for (auto item : Epsilon_state)
         {
-            if (!(a->accept_state_flag)&&(item->accept_state_flag)) a->accept_state_flag = true;
+            if (!(a->accept_state_flag)&&(item->accepted)) a->accept_state_flag = true;
             a->subset.insert(item);
             a->subset_ids.insert(item->id);
         }
@@ -217,11 +218,11 @@ map<int, DFA_Graph> get_graph (){
         bool accepted = Table[i]->accept_state_flag;
         string type_name = Table[i]->name;
         int priority_id = Table[i]->priority;
-        map <string, set<NFA_State*>> transition = Table[i]->symbols;
+        map <string, set<state*>> transition = Table[i]->symbols;
         for(auto item : transition){
             string input = item.first;
             int next_id;
-            set <NFA_State*> sub = item.second;
+            set <state*> sub = item.second;
             for(auto next:Table){
                 if(next->subset == sub){
                     next_id = next->id;

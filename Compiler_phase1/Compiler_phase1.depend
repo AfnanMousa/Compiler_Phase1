@@ -1,78 +1,45 @@
 # depslib dependency file v1.0
-1620360287 source:c:\users\ena\codeblocks\mingw\bin\compiler_phase1\parse_rules.cpp
+1620510823 source:c:\users\ena\codeblocks\mingw\bin\compiler_phase1\parse_rules.cpp
 	"parse_rules.h"
 	<bits/stdc++.h>
 
-1620356759 c:\users\ena\codeblocks\mingw\bin\compiler_phase1\parse_rules.h
+1620510823 c:\users\ena\codeblocks\mingw\bin\compiler_phase1\parse_rules.h
 	<bits/stdc++.h>
 
-1620357650 source:c:\users\ena\codeblocks\mingw\bin\compiler_phase1\nfa.cpp
+1620512619 source:c:\users\ena\codeblocks\mingw\bin\compiler_phase1\nfa.cpp
 	"NFA.h"
 	<algorithm>
 	<bits/stdc++.h>
 
-1620356759 c:\users\ena\codeblocks\mingw\bin\compiler_phase1\nfa.h
+1620510823 c:\users\ena\codeblocks\mingw\bin\compiler_phase1\nfa.h
 	"structures.h"
 	<bits/stdc++.h>
 
-1620358039 c:\users\ena\codeblocks\mingw\bin\compiler_phase1\structures.h
+1620512542 c:\users\ena\codeblocks\mingw\bin\compiler_phase1\structures.h
 	<bits/stdc++.h>
 
-1620357855 source:c:\users\ena\codeblocks\mingw\bin\compiler_phase1\calc_rgx.cpp
+1620512888 source:c:\users\ena\codeblocks\mingw\bin\compiler_phase1\calc_rgx.cpp
 	"calc_rgx.h"
 	<bits/stdc++.h>
 	"structures.h"
 
-1620356759 c:\users\ena\codeblocks\mingw\bin\compiler_phase1\calc_rgx.h
+1620510823 c:\users\ena\codeblocks\mingw\bin\compiler_phase1\calc_rgx.h
 	"structures.h"
 	"NFA.h"
 
-1620357281 source:c:\users\ena\codeblocks\mingw\bin\compiler_phase1\input_rules.cpp
-	"input_rules.h"
-	"parse_rules.h"
-	<iostream>
-	<fstream>
-	<string>
-	<vector>
-	<bits/stdc++.h>
-
-1620356759 c:\users\ena\codeblocks\mingw\bin\compiler_phase1\input_rules.h
-	"parse_rules.h"
-	"structures.h"
-	"calc_rgx.h"
-	<iostream>
-	<fstream>
-	<string>
-	<vector>
-
-1620365796 source:c:\users\lenovo\downloads\compiler-main\compiler_phase1\calc_rgx.cpp
-	"calc_rgx.h"
-	<bits/stdc++.h>
-	"structures.h"
-
-1620365796 c:\users\lenovo\downloads\compiler-main\compiler_phase1\calc_rgx.h
-	"structures.h"
-	"NFA.h"
-
-1620365796 c:\users\lenovo\downloads\compiler-main\compiler_phase1\structures.h
-	<bits/stdc++.h>
-
-1620365796 c:\users\lenovo\downloads\compiler-main\compiler_phase1\nfa.h
-	"structures.h"
-	<bits/stdc++.h>
-
-1620433396 source:c:\users\lenovo\downloads\compiler-main\compiler_phase1\input_rules.cpp
+1620515562 source:c:\users\ena\codeblocks\mingw\bin\compiler_phase1\input_rules.cpp
 	"input_rules.h"
 	"parse_rules.h"
 	"interface.h"
 	"minimization.h"
+	"TestProgram.h"
 	<iostream>
 	<fstream>
 	<string>
 	<vector>
 	<bits/stdc++.h>
 
-1620365796 c:\users\lenovo\downloads\compiler-main\compiler_phase1\input_rules.h
+1620510823 c:\users\ena\codeblocks\mingw\bin\compiler_phase1\input_rules.h
 	"parse_rules.h"
 	"structures.h"
 	"calc_rgx.h"
@@ -81,61 +48,156 @@
 	<string>
 	<vector>
 
-1620365796 c:\users\lenovo\downloads\compiler-main\compiler_phase1\parse_rules.h
-	<bits/stdc++.h>
-
-1620365796 source:c:\users\lenovo\downloads\compiler-main\compiler_phase1\nfa.cpp
-	"NFA.h"
-	<algorithm>
-	<bits/stdc++.h>
-
-1620365796 source:c:\users\lenovo\downloads\compiler-main\compiler_phase1\parse_rules.cpp
-	"parse_rules.h"
-	<bits/stdc++.h>
-
-1620433836 source:c:\users\lenovo\downloads\compiler-main\compiler_phase1\dfa.cpp
+1620515551 source:c:\users\ena\codeblocks\mingw\bin\compiler_phase1\dfa.cpp
 	<iostream>
 	<bits/stdc++.h>
 	<iterator>
 	"DFA.h"
+	"minimization.h"
 
-1620433836 c:\users\lenovo\downloads\compiler-main\compiler_phase1\dfa.h
+1620514652 c:\users\ena\codeblocks\mingw\bin\compiler_phase1\dfa.h
 	<iostream>
 	<vector>
 	<map>
-	"NFA_converted.h"
+	"structures.h"
 	<bits/stdc++.h>
 
-1620433921 c:\users\lenovo\downloads\compiler-main\compiler_phase1\nfa_converted.h
+1620514520 c:\users\ena\codeblocks\mingw\bin\compiler_phase1\nfa_converted.h
 	<iostream>
 	<bits/stdc++.h>
 
-1620433850 source:c:\users\lenovo\downloads\compiler-main\compiler_phase1\interface.cpp
+1620510823 c:\users\ena\codeblocks\mingw\bin\compiler_phase1\minimization.h
+	<iostream>
+	<map>
+	"DFA.h"
+
+1620514688 c:\users\ena\codeblocks\mingw\bin\compiler_phase1\interface.h
+	<iostream>
+	<bits/stdc++.h>
+	"structures.h"
+
+1620514832 source:c:\users\ena\codeblocks\mingw\bin\compiler_phase1\interface.cpp
 	"interface.h"
 	"DFA.h"
 	<iostream>
 	<bits/stdc++.h>
 
-1620433985 c:\users\lenovo\downloads\compiler-main\compiler_phase1\interface.h
-	<iostream>
-	<bits/stdc++.h>
-	"structures.h"
-
-1620422432 source:c:\users\lenovo\downloads\compiler-main\compiler_phase1\main.cpp
+1620510823 source:c:\users\ena\codeblocks\mingw\bin\compiler_phase1\main.cpp
 	<iostream>
 	"minimization.h"
 
-1620434039 c:\users\lenovo\downloads\compiler-main\compiler_phase1\minimization.h
-	<iostream>
-	<map>
-	"DFA.h"
-
-1620389512 source:c:\users\lenovo\downloads\compiler-main\compiler_phase1\minimization.cpp
+1620510823 source:c:\users\ena\codeblocks\mingw\bin\compiler_phase1\minimization.cpp
 	<iostream>
 	"minimization.h"
 	<map>
 	<set>
 
-1620389512 source:c:\users\lenovo\downloads\compiler-main\compiler_phase1\nfa_converted.cpp
+1620510823 source:c:\users\ena\codeblocks\mingw\bin\compiler_phase1\nfa_converted.cpp
 	"NFA_converted.h"
+
+1620510823 c:\users\ena\codeblocks\mingw\bin\compiler_phase1\testprogram.h
+	<iostream>
+	<vector>
+	<map>
+	"minimization.h"
+	<bits/stdc++.h>
+
+1620510823 source:c:\users\ena\codeblocks\mingw\bin\compiler_phase1\testprogram.cpp
+	"TestProgram.h"
+	<iostream>
+	<bits/stdc++.h>
+	<regex>
+	<iterator>
+
+1620570138 source:c:\users\lenovo\downloads\compiler-main\compiler_phase1\calc_rgx.cpp
+	"calc_rgx.h"
+	<bits/stdc++.h>
+	"structures.h"
+
+1620484196 c:\users\lenovo\downloads\compiler-main\compiler_phase1\calc_rgx.h
+	"structures.h"
+	"NFA.h"
+
+1620484196 c:\users\lenovo\downloads\compiler-main\compiler_phase1\structures.h
+	<bits/stdc++.h>
+
+1620484196 c:\users\lenovo\downloads\compiler-main\compiler_phase1\nfa.h
+	"structures.h"
+	<bits/stdc++.h>
+
+1620484196 source:c:\users\lenovo\downloads\compiler-main\compiler_phase1\dfa.cpp
+	<iostream>
+	<bits/stdc++.h>
+	<iterator>
+	"DFA.h"
+	"minimization.h"
+
+1620484196 c:\users\lenovo\downloads\compiler-main\compiler_phase1\dfa.h
+	<iostream>
+	<vector>
+	<map>
+	"structures.h"
+	<bits/stdc++.h>
+
+1620484196 c:\users\lenovo\downloads\compiler-main\compiler_phase1\minimization.h
+	<iostream>
+	<map>
+	"DFA.h"
+
+1620573558 source:c:\users\lenovo\downloads\compiler-main\compiler_phase1\input_rules.cpp
+	"input_rules.h"
+	"parse_rules.h"
+	"minimization.h"
+	"TestProgram.h"
+	<iostream>
+	<fstream>
+	<string>
+	<vector>
+	<bits/stdc++.h>
+
+1620484196 c:\users\lenovo\downloads\compiler-main\compiler_phase1\input_rules.h
+	"parse_rules.h"
+	"structures.h"
+	"calc_rgx.h"
+	<iostream>
+	<fstream>
+	<string>
+	<vector>
+
+1620484196 c:\users\lenovo\downloads\compiler-main\compiler_phase1\parse_rules.h
+	<bits/stdc++.h>
+
+1620570496 c:\users\lenovo\downloads\compiler-main\compiler_phase1\testprogram.h
+	<iostream>
+	<vector>
+	<map>
+	"minimization.h"
+	<bits/stdc++.h>
+
+1620484196 source:c:\users\lenovo\downloads\compiler-main\compiler_phase1\main.cpp
+	<iostream>
+	"minimization.h"
+
+1620484196 source:c:\users\lenovo\downloads\compiler-main\compiler_phase1\minimization.cpp
+	<iostream>
+	"minimization.h"
+	<map>
+	<set>
+
+1620484196 source:c:\users\lenovo\downloads\compiler-main\compiler_phase1\nfa.cpp
+	"NFA.h"
+	<algorithm>
+	<bits/stdc++.h>
+
+1620484196 source:c:\users\lenovo\downloads\compiler-main\compiler_phase1\parse_rules.cpp
+	"parse_rules.h"
+	<bits/stdc++.h>
+
+1620574486 source:c:\users\lenovo\downloads\compiler-main\compiler_phase1\testprogram.cpp
+	"TestProgram.h"
+	<iostream>
+	<fstream>
+	<bits/stdc++.h>
+	<regex>
+	<iterator>
 

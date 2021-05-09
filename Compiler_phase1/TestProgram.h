@@ -9,7 +9,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void split (string program,map<int, DFA_Graph> graph);
-void validation(map<int, DFA_Graph> graph, string word);
+void split (string program, vector <char> punctuation, vector <string> keyWords, map<int, DFA_Graph> graph);
+void validation(map<int, DFA_Graph> graph, string word,vector <char> punctuation, vector <string> keyWords);
 
 #endif

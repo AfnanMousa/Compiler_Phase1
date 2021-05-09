@@ -3,7 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
-#include "NFA_converted.h"
+#include "structures.h"
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -13,11 +13,11 @@ struct DFA_State{
     bool accept_state_flag = false; //0 not accepting ,1 for accepting.
     string name="";
     int priority = 0;
-    set <NFA_State*> subset;
+    set <state*> subset;
     set <int> subset_ids; //of NFA_state
     //string represents the content of input_symbol
     //vector represents move+epsilon transitions
-    map <string, set<NFA_State*>> symbols;
+    map <string, set<state*>> symbols;
     map <string, set<int>> Group_ids;
 };
 
@@ -28,7 +28,7 @@ struct DFA_Graph{ //represent the node .
     map<string, int> next_state;  //under input go to id of next state .
 };
 
-map<int, DFA_Graph> Subset_Construction(NFA_State* original);
+map<int, DFA_Graph> Subset_Construction(state* original);
 void Move_To(DFA_State *Basic_node);
 void test(DFA_State *Basic_node);
 map<int, DFA_Graph> get_graph ();

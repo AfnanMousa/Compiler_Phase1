@@ -32,20 +32,24 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="DFA.cpp" />
+		<Unit filename="DFA.h" />
 		<Unit filename="NFA.cpp" />
 		<Unit filename="NFA.h" />
+		<Unit filename="TestProgram.cpp" />
+		<Unit filename="TestProgram.h" />
 		<Unit filename="calc_rgx.cpp" />
 		<Unit filename="calc_rgx.h" />
 		<Unit filename="input_rules.cpp" />
 		<Unit filename="input_rules.h" />
+		<Unit filename="main.cpp" />
+		<Unit filename="minimization.cpp" />
+		<Unit filename="minimization.h" />
 		<Unit filename="parse_rules.cpp" />
 		<Unit filename="parse_rules.h" />
 		<Unit filename="rules.txt" />
 		<Unit filename="structures.h" />
 		<Extensions>
-			<code_completion />
-			<envvars />
-			<debugger />
 			<lib_finder disable_auto="1" />
 		</Extensions>
 	</Project>
